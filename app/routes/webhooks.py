@@ -1,4 +1,6 @@
 from fastapi import APIRouter, Request, HTTPException
+from fastapi.responses import RedirectResponse
+
 
 import stripe
 
@@ -23,4 +25,6 @@ async def stripe_webhook(request: Request):
         print("payment succedded")
         payment_intent = event["data"]["object"]
 
-    return {"status": "ok"}
+    # return {"status": "ok"}
+    return RedirectResponse(url="https://platform.k-v.ai/")
+

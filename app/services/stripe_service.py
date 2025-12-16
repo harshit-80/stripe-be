@@ -11,7 +11,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 PLANS = {
     "plan_starter": 5000, #these are in paise by default
     "plan_pro": 20000,
-    "plan_enterprice": 50000
+    "plan_enterprise": 50000
 }
 
 def create_payment_intent(plan_id: str):
@@ -23,6 +23,7 @@ def create_payment_intent(plan_id: str):
     intent = stripe.PaymentIntent.create(
         amount = amount,
         currency = "inr",
+        receipt_email="harshit.kashyap@k-v.ai",
         automatic_payment_methods={"enabled": True},
         metadata={
             "plan_id": plan_id,
