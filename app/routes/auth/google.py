@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
 import requests
 from app.config import settings
+from app.utils.google_token_checker import google_token_checker
 
 router = APIRouter()
 
@@ -33,5 +34,9 @@ def google_auth(payload: dict):
         raise HTTPException(400, "google token exchange failed")
 
     tokens = token_res.json()
+    internal_response = google_token_checker(tokens['id_token'])
+    print(tokens['id_token'])
 
-    return {"reponse": "ok", "data": {"tokens": tokens}}
+
+    # return {"reponse": "ok", "data": {"tokens": tokens}}
+    return {"reponse": "ok", "data": {"tokens": tokens, "internal response": internal_response}}
